@@ -16,6 +16,11 @@ const io = new Server(server, {
   },
 })
 
+// listen to event
+io.on("connection", (socket) => {
+  console.log(`user connected: ${socket.id}`)
+})
+
 // listen to port
 server.listen(3001, () => {
   console.log("server is running")
