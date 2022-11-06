@@ -23,7 +23,11 @@ io.on("connection", (socket) => {
   // we'll listen to the event from frontend, we created 'send_message' to emit
   // we'll also received a data from frontend too
   socket.on("send_message", (data) => {
-    console.log(data)
+    // console.log(data)
+
+    // 'broadcast' -> send to 'everyone' except yourself opkors
+    // 'receive_message' -> we'll listen to this so we can receive ALL messages we emit to other people
+    socket.broadcast.emit("receive_message", data)
   })
 })
 

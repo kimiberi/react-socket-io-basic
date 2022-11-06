@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import "./App.css"
 import io from "socket.io-client"
 
@@ -15,6 +15,13 @@ const App = () => {
       message: "hello",
     })
   }
+
+  // we'll listen on this event from backend, we created 'receive_message'
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      alert(data.message)
+    })
+  }, [])
 
   return (
     <div className='App'>
