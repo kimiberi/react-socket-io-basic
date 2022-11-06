@@ -9,7 +9,11 @@ const App = () => {
   const sendMessage = () => {
     // emit message to sort people
     // you can emit sort of event so the person can listen to that event
-    // socket.emit()
+
+    // we'll send data to backend
+    socket.emit("send_message", {
+      message: "hello",
+    })
   }
 
   return (

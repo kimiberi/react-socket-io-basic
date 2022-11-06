@@ -19,6 +19,12 @@ const io = new Server(server, {
 // listen to event
 io.on("connection", (socket) => {
   console.log(`user connected: ${socket.id}`)
+
+  // we'll listen to the event from frontend, we created 'send_message' to emit
+  // we'll also received a data from frontend too
+  socket.on("send_message", (data) => {
+    console.log(data)
+  })
 })
 
 // listen to port
