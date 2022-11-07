@@ -28,15 +28,28 @@ io.on("connection", (socket) => {
     socket.join(data)
   })
 
-  socket.on("send_message", (data) => {
+  socket.on("send_message", (data, room) => {
     // console.log(data)
 
-    // OPTION 1 - CHAT
+    // NOTE:
     // 'broadcast' -> send to 'everyone' except yourself opkors
     // 'receive_message' -> we'll listen to this so we can receive ALL messages we emit to other people
+
+    // OPTION 0 - TESTING
     // socket.broadcast.emit("receive_message", data)
 
+    // OPTION 1 - CHAT
+    // socket.broadcast.emit("receive_message", data)
+
+    // OPTION 1.1 - CHAT WITH RANDOM NAME
+    // socket.broadcast.emit("receive_message", {
+    //   message: `${socket.id.substring(0, 2)} said ${data}`,
+    // })
+
     // OPTION 2 - CHAT WITH ROOM JOIN
+    // socket.to(data.room).emit("receive_message", data)
+
+    // OPTION 2.2 - ROOM JOIN CHAT WITH RANDOM NAME
     socket.to(data.room).emit("receive_message", data)
   })
 })

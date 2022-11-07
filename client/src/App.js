@@ -16,6 +16,7 @@ const App = () => {
   }
 
   const sendMessage = () => {
+    // NOTE:
     // emit message to sort people
     // you can emit sort of event so the person can listen to that event
 
@@ -29,9 +30,18 @@ const App = () => {
     // we'll send data to backend
     // socket.emit("send_message", { message: sendMsg })
 
+    // OPTION 1.1 - CHAT WITH RANDOM NAME
+    // socket.emit("send_message", sendMsg)
+
     // OPTION 2 - CHAT WITH ROOM JOIN
     // we'll send data to backend
-    socket.emit("send_message", { message: sendMsg, room })
+    // socket.emit("send_message", { message: sendMsg, room })
+
+    // OPTION 2.2 - ROOM JOIN CHAT WITH RANDOM NAME
+    socket.emit("send_message", {
+      message: `${socket.id.substring(0, 2)} said ${sendMsg}`,
+      room,
+    })
   }
 
   // we'll listen on this event from backend, we created 'receive_message'
@@ -70,7 +80,7 @@ const App = () => {
 
       <button onClick={sendMessage}>Send Message</button>
 
-      <h2>Message: {receivedMsg}</h2>
+      <h2>{receivedMsg}</h2>
     </div>
   )
 }
