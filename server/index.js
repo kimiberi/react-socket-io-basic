@@ -11,7 +11,7 @@ const server = http.createServer(app)
 const io = new Server(server, {
   // specify all properties and functionalities that you want in cors inside the project and work inside socket.io
   cors: {
-    origin: "http://localhost:3000", // URL for Frontend
+    origin: `${process.env.REACT_APP_FRONTEND_LOCALHOST_URL}`, // URL for Frontend
     methods: ["GET", "POST"],
   },
 })

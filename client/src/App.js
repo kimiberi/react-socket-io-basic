@@ -3,7 +3,7 @@ import "./App.css"
 import io from "socket.io-client"
 
 // frontend runs in '3000' then backend for '3001'
-const socket = io.connect("http://localhost:3001")
+const socket = io.connect(`${process.env.REACT_APP_BACKEND_LOCALHOST_URL}`)
 
 const App = () => {
   const [sendMsg, setSendMsg] = useState("")
