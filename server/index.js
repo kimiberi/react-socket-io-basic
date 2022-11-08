@@ -28,7 +28,7 @@ io.on("connection", (socket) => {
     socket.join(data)
   })
 
-  socket.on("send_message", (data, room) => {
+  socket.on("send_message", (data) => {
     // console.log(data)
 
     // NOTE:
