@@ -3,7 +3,9 @@ const app = express()
 const http = require("http")
 const { Server } = require("socket.io")
 const cors = require("cors")
+const dotenv = require("dotenv")
 
+dotenv.config()
 app.use(cors())
 // we create http server with Express
 const server = http.createServer(app)
@@ -11,7 +13,7 @@ const server = http.createServer(app)
 const io = new Server(server, {
   // specify all properties and functionalities that you want in cors inside the project and work inside socket.io
   cors: {
-    origin: `${process.env.REACT_APP_FRONTEND_LOCALHOST_URL}`, // URL for Frontend
+    origin: process.env.REACT_APP_FRONTEND_URL, // URL for Frontend
     methods: ["GET", "POST"],
   },
 })
@@ -55,6 +57,8 @@ io.on("connection", (socket) => {
 })
 
 // listen to port
-server.listen(3001, () => {
-  console.log("server is running")
+const PORT = process.env.PORT || 3001
+
+server.listen(PORT, () => {
+  console.log(`server running ${process.env.NODE_ENV} on port ${PORT}`)
 })

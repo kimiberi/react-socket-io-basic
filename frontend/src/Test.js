@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
 import io from "socket.io-client"
 
-const socket = io()
+// NOTE: this would be a basic sample of checking Socket.io connection
+const socket = io.connect(process.env.REACT_APP_BACKEND_URL)
 
-// For checking Basic Socket.io Connection
-// Note: for successfully connect, BE MUST running
 const Test = () => {
   const [isConnected, setIsConnected] = useState(socket.connected)
 
+  // check socket.io connection
   useEffect(() => {
     socket.on("connect", () => {
       setIsConnected(true)
@@ -24,9 +24,9 @@ const Test = () => {
   }, [])
 
   return (
-    <>
-      <p>Connected: {"" + isConnected}</p>
-    </>
+    <div>
+      <p>Test Page Connected: {"" + isConnected}</p>
+    </div>
   )
 }
 

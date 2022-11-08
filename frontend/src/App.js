@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react"
 import "./App.css"
 import io from "socket.io-client"
+import Test from "./Test"
 
 // frontend runs in '3000' then backend for '3001'
-const socket = io.connect(`${process.env.REACT_APP_BACKEND_LOCALHOST_URL}`)
+const socket = io.connect(process.env.REACT_APP_BACKEND_URL)
 
 const App = () => {
   const [sendMsg, setSendMsg] = useState("")
   const [receivedMsg, setReceivedMsg] = useState("")
   const [room, setRoom] = useState("")
+  const [isConnected, setIsConnected] = useState(socket.connected)
 
   // OPTION 2 - CHAT WITH ROOM JOIN
   const joinRoom = () => {
@@ -44,6 +46,22 @@ const App = () => {
     })
   }
 
+  // check socket.io connection
+  useEffect(() => {
+    socket.on("connect", () => {
+      setIsConnected(true)
+    })
+
+    socket.on("disconnect", () => {
+      setIsConnected(false)
+    })
+
+    return () => {
+      socket.off("connect")
+      socket.off("disconnect")
+    }
+  }, [])
+
   // we'll listen on this event from backend, we created 'receive_message'
   useEffect(() => {
     socket.on("receive_message", (data) => {
@@ -57,6 +75,12 @@ const App = () => {
 
   return (
     <div className='App'>
+      <Test />
+      <br />
+
+      <p>Connected: {"" + isConnected}</p>
+      <br />
+
       {/* JOIN ROOM */}
       <input
         placeholder='Join here..'
