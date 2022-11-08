@@ -78,7 +78,7 @@ const App = () => {
       <Test />
       <br />
 
-      <p>Connected: {"" + isConnected}</p>
+      <p>Connected: {isConnected}</p>
       <br />
 
       {/* JOIN ROOM */}
